@@ -1,36 +1,185 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🥎 Olivia's Magical Softball Quiz Machine
+
+A mobile-first web application that tests softball knowledge with adaptive difficulty and AI-powered feedback.
+
+## Features
+
+- **Adaptive Difficulty**: Questions adjust based on your Elo rating
+- **AI Feedback**: OpenAI GPT-3.5 provides coach-style feedback
+- **Mobile-First Design**: Optimized for tablets and phones
+- **Free-Text Input**: No multiple choice - write what you think!
+- **Three Categories**: Up to Bat, On the Field, On Base
+- **Sound Effects**: Classic metal bat "ping" sound
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+- OpenAI API key
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd softball-quiz
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Add your OpenAI API key to `.env.local`:
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-## Learn More
+5. Start the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How It Works
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### User Flow
+1. **Welcome Screen**: Introduction and instructions
+2. **Quiz Setup**: Choose category and number of questions
+3. **Quiz**: Answer questions with free-text input
+4. **Loading**: Animated screen while AI evaluates answers
+5. **Results**: Score, Elo rating, and feedback on missed questions
 
-## Deploy on Vercel
+### Elo Rating System
+- Starting Elo: 1200
+- Updated every 5 questions
+- Questions matched within ±50 Elo (expanding if needed)
+- Rating affects future question difficulty
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### AI Evaluation
+- Uses OpenAI GPT-3.5 Turbo
+- Provides coach-style feedback
+- Evaluates correctness based on softball rules and strategy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technical Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **AI**: OpenAI GPT-3.5 Turbo
+- **State Management**: React Context + useReducer
+- **Deployment**: Vercel-ready
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── evaluate/    # LLM evaluation endpoint
+│   │   └── questions/   # Question loading endpoint
+│   ├── globals.css      # Global styles
+│   ├── layout.tsx       # App layout
+│   └── page.tsx         # Main app component
+├── components/
+│   ├── WelcomeScreen.tsx
+│   ├── QuizSetupScreen.tsx
+│   ├── QuizScreen.tsx
+│   ├── LoadingScreen.tsx
+│   └── ResultsScreen.tsx
+├── context/
+│   └── QuizContext.tsx  # Global state management
+├── data/
+│   └── sampleQuestions.ts # Sample question data
+├── services/
+│   ├── questionService.ts # Question loading and filtering
+│   └── eloService.ts     # Elo rating calculations
+├── types/
+│   └── index.ts         # TypeScript type definitions
+└── utils/
+    └── sound.ts         # Sound effect utilities
+```
+
+## API Endpoints
+
+### GET /api/questions
+Load questions based on category and user Elo rating.
+
+**Query Parameters:**
+- `category`: "Up to Bat" | "On the Field" | "On Base"
+- `userElo`: number (default: 1200)
+- `count`: number (default: 10)
+- `excludeIds`: comma-separated question IDs to exclude
+
+### POST /api/evaluate
+Evaluate user answers using OpenAI.
+
+**Request Body:**
+```json
+{
+  "answers": [
+    {
+      "question_id": "string",
+      "question_text": "string",
+      "user_answer": "string",
+      "question_elo": number,
+      "timestamp": "string"
+    }
+  ]
+}
+```
+
+## Question Data Format
+
+Questions are stored with the following structure:
+
+```typescript
+interface Question {
+  question_id: string;
+  category: 'Up to Bat' | 'On the Field' | 'On Base';
+  elo_rating: number;
+  question_text: string;
+  correct_answer: string;
+  explanation_prompt: string;
+  game_state_json: string; // JSON with inning, count, outs, score, runners
+}
+```
+
+## Future Enhancements
+
+- **S3 Integration**: Store questions in S3 CSV and session logs
+- **User Accounts**: Save progress across sessions
+- **Leaderboards**: Compare with other players
+- **More Categories**: Add pitching, coaching scenarios
+- **Advanced Analytics**: Detailed performance tracking
+
+## Sound Assets
+
+The app includes a ping sound effect. Replace `public/sounds/ping.mp3` with your own audio file for the metal bat sound.
+
+## Deployment
+
+The app is ready for deployment on Vercel:
+
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

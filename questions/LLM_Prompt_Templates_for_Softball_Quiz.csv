@@ -1,0 +1,21 @@
+category,prompt_template,elo_target
+At Bat,Generate a question where the batter faces a full count and must decide whether to swing.,1000
+At Bat,Create a tough at-bat situation where the batter must read a pitch type and location under pressure.,1400
+At Bat,Design a scenario where the batter must consider bunt strategy with a fast runner on base.,1200
+At Bat,Come up with a simple question for a beginner batter deciding how to hold the bat.,800
+At Bat,Pose a challenge involving adjusting stance mid-at-bat based on pitcher tendencies.,1500
+Pitching,Create a question where a pitcher must decide between a fastball or changeup against a power hitter.,1300
+Pitching,Generate a beginner-level question where the pitcher is trying to understand the strike zone.,800
+Pitching,Design a question involving pitching strategy when ahead in the count 0-2.,1200
+Pitching,Pose a scenario where the pitcher must deal with a runner stealing second.,1100
+Pitching,Ask a difficult question involving pick-off moves and balk rules.,1600
+Fielding,Create a question where the third baseman must charge a bunt.,1000
+Fielding,Generate a scenario where the center fielder must decide whether to dive or play it safe.,1400
+Fielding,Pose a basic question about what a shortstop does on a double play.,800
+Fielding,Design a challenging situation for the catcher managing a passed ball with runners on.,1500
+Fielding,Ask about the best reaction to a line drive up the middle as a second baseman.,1200
+On Base,Generate a question where the runner on second must decide whether to tag or go on a fly ball.,1100
+On Base,Pose a beginner question about when to take a lead off first base.,800
+On Base,Create a scenario involving a double steal and runner timing.,1400
+On Base,Design a difficult base-running decision on a ball hit to shallow right field.,1500
+On Base,Ask about when a runner on third should attempt to steal home.,1300

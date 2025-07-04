@@ -1,0 +1,78 @@
+category,prompt_template,elo_target
+At Bat,Generate a question where the batter faces a full count and must decide whether to swing.,1000
+At Bat,Create a tough at-bat situation where the batter must read a pitch type and location under pressure.,1400
+At Bat,Design a scenario where the batter must consider bunt strategy with a fast runner on base.,1200
+At Bat,Come up with a simple question for a beginner batter deciding how to hold the bat.,800
+At Bat,Pose a challenge involving adjusting stance mid-at-bat based on pitcher tendencies.,1500
+At Bat,Create a scenario where the batter must decide between taking a walk or protecting with two strikes.,1300
+At Bat,Design a question about hitting with runners in scoring position and pressure on.,1400
+At Bat,Generate a situation where the batter must read defensive positioning before swinging.,1200
+At Bat,Ask about proper approach when facing a pitcher who throws primarily off-speed pitches.,1100
+At Bat,Create a beginner question about proper batting stance and grip fundamentals.,800
+At Bat,Design a scenario involving hit-and-run timing and execution from the batter's perspective.,1300
+At Bat,Generate a question about protecting the plate with a 3-2 count and runners on base.,1400
+At Bat,Ask about adjusting timing when facing a particularly fast or slow pitcher.,1200
+At Bat,Create a scenario about when to attempt to steal a base while at bat to help the runner.,900
+At Bat,Design a question involving sacrifice fly technique and when to employ it.,1100
+At Bat,Ask about basic timing and when to start your swing.,900
+At Bat,Create a question about choosing which pitches to swing at.,950
+At Bat,Generate a simple scenario about making contact with the ball.,850
+At Bat,Ask about basic batting safety and protective equipment.,850
+At Bat,Create a question about reading the pitcher's delivery.,950
+Pitching,Create a question where a pitcher must decide between a fastball or changeup against a power hitter.,1300
+Pitching,Generate a beginner-level question where the pitcher is trying to understand the strike zone.,800
+Pitching,Design a question involving pitching strategy when ahead in the count 0-2.,1200
+Pitching,Pose a scenario where the pitcher must deal with a runner stealing second.,1100
+Pitching,Ask a difficult question involving pick-off moves and balk rules.,1600
+Pitching,Create a situation where the pitcher must decide how to attack a known contact hitter.,1200
+Pitching,Generate a question about pitching with the bases loaded and maintaining composure.,1500
+Pitching,Design a scenario involving intentional walks and strategic base management.,1300
+Pitching,Ask about reading hitter tendencies and adjusting pitch selection accordingly.,1400
+Pitching,Create a beginner question about proper pitching mechanics and delivery.,800
+Pitching,Generate a situation involving relief pitching strategy in high-pressure situations.,1400
+Pitching,Design a question about managing pitch count and conserving energy during long games.,1100
+Pitching,Ask about communicating with catchers and reading defensive signals.,1000
+Pitching,Create a scenario involving wild pitches or passed balls with runners on base.,1200
+Pitching,Generate a question about dealing with different weather conditions affecting pitch movement.,1300
+Pitching,Ask about basic pitching grip and stance fundamentals.,850
+Pitching,Create a question about simple pitch location strategies.,900
+Pitching,Generate a scenario about basic control and accuracy.,950
+Pitching,Ask about warming up properly before pitching.,850
+Fielding,Create a question where the third baseman must charge a bunt.,1000
+Fielding,Generate a scenario where the center fielder must decide whether to dive or play it safe.,1400
+Fielding,Pose a basic question about what a shortstop does on a double play.,800
+Fielding,Design a challenging situation for the catcher managing a passed ball with runners on.,1500
+Fielding,Ask about the best reaction to a line drive up the middle as a second baseman.,1200
+Fielding,Create a scenario where the right fielder must decide whether to attempt a difficult catch.,1300
+Fielding,Generate a question about proper positioning when expecting a steal attempt.,1100
+Fielding,Design a situation involving communication between infielders on a pop fly.,900
+Fielding,Ask about backup responsibilities when a ball is hit to the outfield.,1000
+Fielding,Create a question about proper footwork for turning a double play at second base.,1200
+Fielding,Generate a scenario involving a difficult throw from deep in the hole at shortstop.,1400
+Fielding,Design a question about reading the batter and positioning accordingly in the outfield.,1100
+Fielding,Ask about managing rundowns and proper technique for retiring baserunners.,1300
+Fielding,Create a beginner question about basic fielding stance and glove positioning.,800
+Fielding,Generate a situation involving tag plays at home plate and collision rules.,1500
+Fielding,Ask about proper glove care and equipment maintenance.,850
+Fielding,Create a question about basic catching techniques.,900
+Fielding,Generate a scenario about calling for fly balls.,950
+Fielding,Ask about safe fielding fundamentals and body positioning.,850
+On Base,Generate a question where the runner on second must decide whether to tag or go on a fly ball.,1100
+On Base,Pose a beginner question about when to take a lead off first base.,800
+On Base,Create a scenario involving a double steal and runner timing.,1400
+On Base,Design a difficult base-running decision on a ball hit to shallow right field.,1500
+On Base,Ask about when a runner on third should attempt to steal home.,1300
+On Base,Generate a question about reading the pitcher's timing and getting a good jump when stealing.,1200
+On Base,Create a scenario where the runner must decide whether to advance on a wild pitch.,1000
+On Base,Design a situation involving proper sliding technique to avoid tags at second base.,1100
+On Base,Ask about communication between baserunners and base coaches during plays.,900
+On Base,Generate a question about when to take an extra base on an overthrow or error.,1200
+On Base,Create a scenario involving sacrifice bunt execution from the runner's perspective.,1000
+On Base,Design a question about proper leads and avoiding pickoff attempts.,1100
+On Base,Ask about reading defensive positioning to determine stealing opportunities.,1300
+On Base,Generate a situation involving interference rules and proper baserunning etiquette.,1400
+On Base,Create a beginner question about basic baserunning fundamentals and safety.,800
+On Base,Ask about proper running form and technique.,850
+On Base,Create a question about basic base coaching signals.,900
+On Base,Generate a scenario about running through first base safely.,950
+On Base,Ask about staying alert while on base.,850
