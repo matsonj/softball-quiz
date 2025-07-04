@@ -39,7 +39,7 @@ Olivia&apos;s Magical Softball Quiz Machine
             <h2 className="font-semibold text-gray-700 mb-2">How it works:</h2>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• Choose your category: Up to Bat, On the Field, or On Base</li>
-              <li>• Select number of questions: 10, 20, or 50</li>
+              <li>• Select number of questions: 5, 10, or 20</li>
               <li>• Answer using free text - write what you think!</li>
               <li>• Get feedback on incorrect answers at the end</li>
             </ul>

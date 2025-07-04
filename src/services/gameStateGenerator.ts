@@ -21,30 +21,36 @@ export class GameStateGenerator {
     const inning_half = this.randomChoice(['top', 'bottom'] as const);
     const count = this.randomChoice(this.COUNTS);
     const outs = this.randomInt(0, 2);
-    const homeScore = this.randomInt(0, 8);
-    const visitorScore = this.randomInt(0, 8);
+    const yourScore = this.randomInt(0, 8);
+    const opponentScore = this.randomInt(0, 8);
     const runners = this.randomChoice(this.RUNNER_CONFIGURATIONS);
+    
+    // Create simple score differential
+    let scoreDiff: string;
+    if (yourScore > opponentScore) {
+      scoreDiff = `ahead by ${yourScore - opponentScore}`;
+    } else if (yourScore < opponentScore) {
+      scoreDiff = `behind by ${opponentScore - yourScore}`;
+    } else {
+      scoreDiff = 'tied';
+    }
     
     return {
       inning,
       inning_half,
       count,
       outs,
-      score: `Home ${homeScore}, Visitors ${visitorScore}`,
+      score: scoreDiff,
       runners
     };
   }
   
   static formatGameStateForPrompt(gameState: GameState): string {
-    const battingTeam = gameState.inning_half === 'top' ? 'Visitors' : 'Home';
-    const fieldingTeam = gameState.inning_half === 'top' ? 'Home' : 'Visitors';
-    
     return `Game Situation:
 - Inning: ${gameState.inning_half} of the ${gameState.inning}${this.getOrdinalSuffix(gameState.inning)}
-- Batting Team: ${battingTeam} | Fielding Team: ${fieldingTeam}
 - Count: ${gameState.count}
 - Outs: ${gameState.outs}
-- Score: ${gameState.score}
+- Score: Your team is ${gameState.score}
 - Runners: ${gameState.runners.length > 0 ? gameState.runners.join(', ') : 'None'}`;
   }
   

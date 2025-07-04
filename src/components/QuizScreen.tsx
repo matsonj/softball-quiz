@@ -7,34 +7,41 @@ import { playPingSound } from '@/utils/sound';
 
 export default function QuizScreen() {
   const { state, dispatch } = useQuiz();
-  const [answer, setAnswer] = useState('');
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<GeneratedQuestion | null>(null);
 
   useEffect(() => {
     if (state.questions.length > 0 && state.currentQuestionIndex < state.questions.length) {
       setCurrentQuestion(state.questions[state.currentQuestionIndex]);
+      setSelectedOptionId(null); // Reset selection for new question
     }
   }, [state.questions, state.currentQuestionIndex]);
 
-
+  const handleOptionSelect = (optionId: string) => {
+    setSelectedOptionId(optionId);
+  };
 
   const handleSubmit = () => {
-    if (!answer.trim()) return;
+    if (!selectedOptionId || !currentQuestion) return;
     
     // Play ping sound
     playPingSound();
     
-    dispatch({ type: 'SUBMIT_ANSWER', payload: answer });
+    const selectedOption = currentQuestion.options.find(opt => opt.option_id === selectedOptionId);
+    const answerText = selectedOption ? selectedOption.text : '';
+    const isCorrect = selectedOption ? selectedOption.is_correct : false;
+    
+    dispatch({ 
+      type: 'SUBMIT_ANSWER', 
+      payload: { 
+        answer: answerText, 
+        selectedOptionId, 
+        isCorrect 
+      } 
+    });
     dispatch({ type: 'NEXT_QUESTION' });
     
-    setAnswer('');
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && e.shiftKey === false) {
-      e.preventDefault();
-      handleSubmit();
-    }
+    setSelectedOptionId(null);
   };
 
   if (!currentQuestion) {
@@ -88,26 +95,39 @@ export default function QuizScreen() {
 
         {/* Question */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <h2 className="text-xl font-semibold text-gray-800 mb-6">
             {currentQuestion.question_text}
           </h2>
           
-          <textarea
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your answer here..."
-            className="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none resize-none h-32 text-gray-700"
-            autoFocus
-          />
+          {/* Multiple Choice Options */}
+          <div className="space-y-3">
+            {currentQuestion.options.map((option) => (
+              <button
+                key={option.option_id}
+                onClick={() => handleOptionSelect(option.option_id)}
+                className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
+                  selectedOptionId === option.option_id
+                    ? 'border-orange-500 bg-orange-50 text-orange-800'
+                    : 'border-gray-300 bg-white hover:border-gray-400 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-start space-x-3">
+                  <span className="font-semibold text-sm bg-gray-100 px-2 py-1 rounded min-w-[24px] text-center">
+                    {option.option_id}
+                  </span>
+                  <span className="flex-1">{option.text}</span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          disabled={!answer.trim()}
+          disabled={!selectedOptionId}
           className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors duration-200 ${
-            answer.trim()
+            selectedOptionId
               ? 'bg-orange-600 hover:bg-orange-700 text-white'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
@@ -116,7 +136,7 @@ export default function QuizScreen() {
         </button>
 
         <p className="text-sm text-gray-500 mt-2 text-center">
-          Press Enter to submit
+          Select an option and click Submit
         </p>
       </div>
     </div>

@@ -1,0 +1,55 @@
+{
+  "At Bat": {
+    "title": "Batting Strategy Instructions",
+    "instructions": [
+      "Consider the current score and inning when framing batting decisions - teams that are behind will be more aggressive and willing to take risks",
+      "If the batting team is trailing, emphasize strategies that could generate runs quickly (aggressive swinging, hit-and-run, etc.)",
+      "If the batting team is leading, focus on strategies that maintain the lead (patient approach, working counts, situational hitting)",
+      "In late innings with a close score, emphasize clutch hitting and pressure situations",
+      "Consider the count carefully - different approaches are needed when ahead vs. behind in the count",
+      "Factor in the number of outs and runners on base when suggesting batting strategies",
+      "Consider whether this is a situation where a sacrifice is appropriate based on the game state",
+      "The answers should clearly be about what the batter should do"
+    ]
+  },
+  "Pitching": {
+    "title": "Pitching Strategy Instructions", 
+    "instructions": [
+      "Consider the current score and inning - pitchers may be more conservative with a lead or more aggressive when behind",
+      "Factor in the count when suggesting pitch selection - different strategies apply when ahead vs. behind in the count",
+      "Consider the number of outs and base runners when framing pitching decisions",
+      "If runners are on base, include considerations about holding runners, pick-off attempts, or pitch selection to prevent stolen bases",
+      "In pressure situations (late innings, close games), emphasize decision-making under pressure",
+      "Consider the batting team's situation - are they likely to be aggressive or patient based on the score?",
+      "Factor in whether the pitcher needs a ground ball, fly ball, or strikeout based on the defensive situation"
+    ]
+  },
+  "Fielding": {
+    "title": "Fielding Strategy Instructions",
+    "instructions": [
+      "Only suggest plays that are physically possible given the current base runners - don't mention throwing to bases where no runners exist",
+      "Consider the number of outs carefully - with 2 outs, different priorities apply than with 0 or 1 outs",
+      "NEVER suggest making a play after 3 outs have already been recorded (e.g., throwing to a base after catching a pop fly with 2 outs)",
+      "Consider force play situations only when runners are actually forced to advance",
+      "Factor in the score and inning when suggesting defensive priorities (preventing runs vs. getting outs)",
+      "Consider the speed and position of actual base runners when suggesting defensive plays",
+      "Think about defensive positioning based on the count, batter tendencies, and game situation",
+      "Consider whether the priority is preventing runs or getting outs based on the game state",
+      "Always mention which position the player is"
+    ]
+  },
+  "On Base": {
+    "title": "Base Running Strategy Instructions",
+    "instructions": [
+      "ONLY ask questions about runners who are actually on base according to the game state - never ask about runners on bases that are empty",
+      "Consider the score and inning when framing base running decisions - teams that are behind may take more risks",
+      "Factor in the number of outs when suggesting base running strategies - different approaches with 0, 1, or 2 outs",
+      "Consider the count and batting situation when asking about base running decisions",
+      "Think about whether runners are forced to advance or have the option to stay",
+      "Consider the speed and aggressiveness appropriate for the game situation",
+      "Factor in whether the base runner represents the tying run, go-ahead run, or insurance run",
+      "Consider steal timing, lead-off distance, and tagging up decisions based on the actual game context",
+      "Summarize the score of the game in the question, i.e. 'Your Team is ahead/behind by X runs'"
+    ]
+  }
+}

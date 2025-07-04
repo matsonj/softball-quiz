@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Olivia's Magical Softball Quiz Machine",
+  title: "Olivia's Softball Quiz Machine for 10U",
   description: "Test your softball knowledge with adaptive difficulty and AI-powered feedback",
 };
 

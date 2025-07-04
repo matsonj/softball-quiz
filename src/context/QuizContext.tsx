@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { eloService } from '@/services/eloService';
 
 type QuizState = {
-  currentScreen: 'welcome' | 'setup' | 'quiz' | 'loading' | 'results';
+  currentScreen: 'welcome' | 'setup' | 'question-loading' | 'quiz' | 'loading' | 'results';
   questions: GeneratedQuestion[];
   currentQuestionIndex: number;
   userElo: number;
@@ -16,19 +16,20 @@ type QuizState = {
   usedTemplates: string[];
   config: {
     category: Category | null;
-    questionCount: 10 | 20 | 50 | null;
+    questionCount: 5 | 10 | 20 | null;
   };
 };
 
 type QuizAction = 
   | { type: 'SET_SCREEN'; payload: QuizState['currentScreen'] }
   | { type: 'SET_QUESTIONS'; payload: GeneratedQuestion[] }
-  | { type: 'SET_CONFIG'; payload: { category: Category; questionCount: 10 | 20 | 50 } }
-  | { type: 'SUBMIT_ANSWER'; payload: string }
+  | { type: 'SET_CONFIG'; payload: { category: Category; questionCount: 5 | 10 | 20 } }
+  | { type: 'SUBMIT_ANSWER'; payload: { answer: string; selectedOptionId: string; isCorrect: boolean } }
   | { type: 'NEXT_QUESTION' }
   | { type: 'SET_EVALUATIONS'; payload: LLMEvaluation[] }
   | { type: 'UPDATE_ELO'; payload: number }
   | { type: 'START_QUIZ' }
+  | { type: 'START_LOADING_QUESTIONS' }
   | { type: 'RESET_QUIZ' };
 
 const initialState: QuizState = {
@@ -57,9 +58,11 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
     case 'SET_CONFIG':
       return { 
         ...state, 
-        config: action.payload,
-        currentScreen: 'quiz'
+        config: action.payload
       };
+    
+    case 'START_LOADING_QUESTIONS':
+      return { ...state, currentScreen: 'question-loading' };
     
     case 'START_QUIZ':
       const session: QuizSession = {
@@ -71,14 +74,16 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         answers: [],
         evaluations: [],
       };
-      return { ...state, session, currentQuestionIndex: 0 };
+      return { ...state, session, currentQuestionIndex: 0, currentScreen: 'quiz' };
     
     case 'SUBMIT_ANSWER':
       const currentQuestion = state.questions[state.currentQuestionIndex];
       const newAnswer: UserAnswer = {
         question_id: currentQuestion.question_id,
         question_text: currentQuestion.question_text,
-        user_answer: action.payload,
+        user_answer: action.payload.answer,
+        selected_option_id: action.payload.selectedOptionId,
+        is_correct: action.payload.isCorrect,
         elo_target: currentQuestion.elo_target,
         prompt_template: currentQuestion.prompt_template,
         game_state: currentQuestion.game_state,

@@ -7,16 +7,14 @@ import { Category } from '@/types';
 export default function QuizSetupScreen() {
   const { state, dispatch, loadQuestions } = useQuiz();
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [selectedCount, setSelectedCount] = useState<10 | 20 | 50 | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [selectedCount, setSelectedCount] = useState<5 | 10 | 20 | null>(null);
+
 
   const categories: Category[] = ['At Bat', 'Pitching', 'Fielding', 'On Base'];
-  const questionCounts = [10, 20, 50] as const;
+  const questionCounts = [5, 10, 20] as const;
 
   const handleStart = async () => {
     if (selectedCategory && selectedCount) {
-      setLoading(true);
-      
       // Set configuration
       dispatch({ 
         type: 'SET_CONFIG', 
@@ -26,13 +24,14 @@ export default function QuizSetupScreen() {
         } 
       });
       
+      // Start loading screen
+      dispatch({ type: 'START_LOADING_QUESTIONS' });
+      
       // Load questions
       await loadQuestions(selectedCategory, state.userElo, selectedCount);
       
       // Start the quiz
       dispatch({ type: 'START_QUIZ' });
-      
-      setLoading(false);
     }
   };
 
@@ -94,14 +93,14 @@ export default function QuizSetupScreen() {
           {/* Start Button */}
           <button
             onClick={handleStart}
-            disabled={!selectedCategory || !selectedCount || loading}
+            disabled={!selectedCategory || !selectedCount}
             className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors duration-200 ${
-              selectedCategory && selectedCount && !loading
+              selectedCategory && selectedCount
                 ? 'bg-green-600 hover:bg-green-700 text-white'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            {loading ? 'Loading Questions...' : 'Start Quiz!'}
+            Start Quiz!
           </button>
         </div>
       </div>

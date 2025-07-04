@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useQuiz } from '@/context/QuizContext';
 
 export default function LoadingScreen() {
-  const { state, evaluateAnswers } = useQuiz();
+  const { state, dispatch } = useQuiz();
   const [animationFrame, setAnimationFrame] = useState(0);
   const [hasStartedEvaluation, setHasStartedEvaluation] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,18 +19,39 @@ export default function LoadingScreen() {
   }, []);
 
   useEffect(() => {
-    // Trigger evaluation when loading screen mounts
+    // For multiple choice questions, we skip AI evaluation and create evaluations directly
     if (!hasStartedEvaluation && state.answers.length > 0) {
       setHasStartedEvaluation(true);
-      setDebugInfo(`Starting evaluation of ${state.answers.length} answers...`);
-      console.log('Starting evaluation of', state.answers.length, 'answers');
+      setDebugInfo(`Processing ${state.answers.length} multiple choice answers...`);
+      console.log('Processing', state.answers.length, 'multiple choice answers');
       
-      evaluateAnswers(state.answers).catch((error) => {
-        console.error('Evaluation failed:', error);
-        setError(`Failed to evaluate answers: ${error.message || error}`);
-      });
+      // Create evaluations directly from multiple choice answers
+      const evaluations = state.answers.map((answer) => ({
+        question_id: answer.question_id,
+        is_correct: answer.is_correct,
+        feedback: answer.is_correct 
+          ? "Correct! Great job!" 
+          : "Not quite right, but keep learning!",
+        suggested_answer: undefined
+      }));
+      
+      // Simulate brief loading time for better UX
+      setTimeout(async () => {
+        try {
+          // Calculate new Elo rating
+          const { eloService } = await import('@/services/eloService');
+          const newElo = eloService.calculateNewElo(state.userElo, state.answers, evaluations);
+          
+          // Update state
+          dispatch({ type: 'SET_EVALUATIONS', payload: evaluations });
+          dispatch({ type: 'UPDATE_ELO', payload: newElo });
+        } catch (error) {
+          console.error('Error processing results:', error);
+          setError(`Failed to process results: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      }, 1500); // 1.5 second delay for better UX
     }
-  }, [state.answers, evaluateAnswers, hasStartedEvaluation]);
+  }, [state.answers, hasStartedEvaluation, dispatch, state.userElo]);
 
   const getAnimationText = () => {
     switch (animationFrame) {
@@ -110,10 +131,10 @@ export default function LoadingScreen() {
         </div>
         
         <p className="text-gray-500 text-sm">
-          Evaluating your answers...
+          Processing your answers...
         </p>
         <p className="text-gray-400 text-xs mt-2">
-          This may take a moment while our AI coach reviews your responses
+          Calculating your score and updating your skill level
         </p>
         {debugInfo && (
           <p className="text-gray-400 text-xs mt-2 font-mono">

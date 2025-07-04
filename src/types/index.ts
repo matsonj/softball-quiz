@@ -6,6 +6,13 @@ export interface PromptTemplate {
   elo_target: number;
 }
 
+export interface MultipleChoiceOption {
+  option_id: string;
+  text: string;
+  is_correct: boolean;
+  explanation?: string;
+}
+
 export interface GeneratedQuestion {
   question_id: string;
   category: Category;
@@ -14,6 +21,7 @@ export interface GeneratedQuestion {
   question_text: string;
   game_state: GameState;
   generated_at: string;
+  options: MultipleChoiceOption[];
 }
 
 export interface GameState {
@@ -29,6 +37,8 @@ export interface UserAnswer {
   question_id: string;
   question_text: string;
   user_answer: string;
+  selected_option_id: string;
+  is_correct: boolean;
   elo_target: number;
   prompt_template: string;
   game_state: GameState;
@@ -57,5 +67,5 @@ export interface QuizSession {
 
 export interface QuizConfig {
   category: Category;
-  questionCount: 10 | 20 | 50;
+  questionCount: 5 | 10 | 20;
 }

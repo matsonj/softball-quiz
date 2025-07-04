@@ -1,21 +1,81 @@
 category,prompt_template,elo_target
-At Bat,Generate a question where the batter faces a full count and must decide whether to swing.,1000
-At Bat,Create a tough at-bat situation where the batter must read a pitch type and location under pressure.,1400
-At Bat,Design a scenario where the batter must consider bunt strategy with a fast runner on base.,1200
-At Bat,Come up with a simple question for a beginner batter deciding how to hold the bat.,800
-At Bat,Pose a challenge involving adjusting stance mid-at-bat based on pitcher tendencies.,1500
-Pitching,Create a question where a pitcher must decide between a fastball or changeup against a power hitter.,1300
-Pitching,Generate a beginner-level question where the pitcher is trying to understand the strike zone.,800
-Pitching,Design a question involving pitching strategy when ahead in the count 0-2.,1200
-Pitching,Pose a scenario where the pitcher must deal with a runner stealing second.,1100
-Pitching,Ask a difficult question involving pick-off moves and balk rules.,1600
-Fielding,Create a question where the third baseman must charge a bunt.,1000
-Fielding,Generate a scenario where the center fielder must decide whether to dive or play it safe.,1400
-Fielding,Pose a basic question about what a shortstop does on a double play.,800
-Fielding,Design a challenging situation for the catcher managing a passed ball with runners on.,1500
-Fielding,Ask about the best reaction to a line drive up the middle as a second baseman.,1200
-On Base,Generate a question where the runner on second must decide whether to tag or go on a fly ball.,1100
-On Base,Pose a beginner question about when to take a lead off first base.,800
-On Base,Create a scenario involving a double steal and runner timing.,1400
-On Base,Design a difficult base-running decision on a ball hit to shallow right field.,1500
-On Base,Ask about when a runner on third should attempt to steal home.,1300
+At Bat,Ask what the batter's approach should be when facing a full count.,1000
+At Bat,Ask what type of swing the batter should use against a breaking ball.,1400
+At Bat,Ask what the batter should consider when deciding to bunt.,1200
+At Bat,Ask about proper batting stance fundamentals.,800
+At Bat,Ask how the batter should adjust their approach when behind in the count.,1500
+At Bat,Ask what the batter should do when the pitcher is ahead in the count.,1100
+At Bat,Ask about the best strategy when facing a left-handed pitcher.,1300
+At Bat,Ask what the batter should focus on with two strikes.,900
+At Bat,Ask about proper bat grip technique.,800
+At Bat,Ask what approach to take against a fastball pitcher.,1000
+At Bat,Ask about situational hitting with a runner in scoring position.,1200
+At Bat,Ask what the batter should do when expecting a changeup.,1100
+At Bat,Ask about the mental approach when in a hitting slump.,1300
+At Bat,Ask what zone to focus on when ahead in the count.,1000
+At Bat,Ask about the best approach for a sacrifice fly situation.,1100
+At Bat,Ask what to do when the catcher is calling for a specific pitch.,1400
+At Bat,Ask about timing and rhythm fundamentals.,900
+At Bat,Ask what approach works best for a contact hitter.,1000
+At Bat,Ask about recognizing pitch types early in the count.,1200
+At Bat,Ask what the batter should prioritize in a clutch situation.,1500
+Pitching,Ask what pitch selection is best against a power hitter.,1300
+Pitching,Ask about the fundamentals of the strike zone.,800
+Pitching,Ask what strategy to use when ahead in the count.,1200
+Pitching,Ask how to handle a runner attempting to steal.,1100
+Pitching,Ask about proper balk rules and avoiding violations.,1600
+Pitching,Ask what the pitcher should focus on with a full count.,1000
+Pitching,Ask about the best approach when behind in the count.,1100
+Pitching,Ask what pitch to throw to get a ground ball.,1200
+Pitching,Ask about proper windup mechanics.,800
+Pitching,Ask what strategy works best against a contact hitter.,1000
+Pitching,Ask how to pitch to the corners of the strike zone.,1300
+Pitching,Ask what the pitcher should do when struggling with control.,900
+Pitching,Ask about pick-off timing and technique.,1400
+Pitching,Ask what pitch sequence is most effective.,1200
+Pitching,Ask about proper follow-through mechanics.,800
+Pitching,Ask what approach to take when facing a leadoff hitter.,1100
+Pitching,Ask about reading the catcher's signals effectively.,1000
+Pitching,Ask what strategy to use in a pressure situation.,1400
+Pitching,Ask about maintaining composure when runners are on base.,1200
+Pitching,Ask what the pitcher should prioritize when facing a tough batter.,1500
+Fielding,Ask what the third baseman should do when charging a bunt.,1000
+Fielding,Ask what decision the outfielder should make on a deep fly ball.,1400
+Fielding,Ask about the shortstop's role in turning a double play.,800
+Fielding,Ask what the catcher should do when handling a passed ball.,1500
+Fielding,Ask what the second baseman's priority should be on a line drive.,1200
+Fielding,Ask about proper throwing mechanics for infielders.,800
+Fielding,Ask what the first baseman should do on a ground ball to their right.,1000
+Fielding,Ask about the outfielder's approach to a ball hit in the gap.,1300
+Fielding,Ask what the catcher should prioritize when framing pitches.,1100
+Fielding,Ask about proper positioning for a left-handed batter.,900
+Fielding,Ask what the shortstop should do on a slow roller.,1100
+Fielding,Ask about communication between outfielders on fly balls.,1000
+Fielding,Ask what the third baseman should prioritize with a runner on third.,1300
+Fielding,Ask about the catcher's role in controlling the running game.,1400
+Fielding,Ask what fielding position should be taken for a bunt situation.,1200
+Fielding,Ask about proper glove positioning for ground balls.,800
+Fielding,Ask what the outfielder should do when the ball is hit directly at them.,900
+Fielding,Ask about backing up other fielders effectively.,1000
+Fielding,Ask what the infielder should prioritize when turning two.,1200
+Fielding,Ask about the best approach for fielding a ball in foul territory.,1100
+On Base,Ask what the runner should consider when deciding to steal.,1100
+On Base,Ask about proper leadoff technique and timing.,800
+On Base,Ask what the runner should do when the ball is hit in the air.,1000
+On Base,Ask about the best approach when running through first base.,950
+On Base,Ask what the runner should prioritize when advancing on a wild pitch.,1200
+On Base,Ask about proper sliding technique and when to use it.,1100
+On Base,Ask what the runner should do when the ball is hit to the infield.,900
+On Base,Ask about communication between runners and base coaches.,900
+On Base,Ask what the leadoff runner should focus on.,800
+On Base,Ask about the best strategy for a delayed steal.,1300
+On Base,Ask what the runner should consider when tagging up.,1000
+On Base,Ask about reading the pitcher's tendencies and timing.,1200
+On Base,Ask what the runner should do when caught in a rundown.,1100
+On Base,Ask about the best approach for stealing third base.,1200
+On Base,Ask what the runner should prioritize when the count is full.,1000
+On Base,Ask about proper base running form and technique.,850
+On Base,Ask what the runner should do when the ball is hit behind them.,1100
+On Base,Ask about the decision-making process for attempting to score.,1300
+On Base,Ask what the runner should consider when there are two outs.,1000
+On Base,Ask about the best strategy when multiple runners are on base.,1400
