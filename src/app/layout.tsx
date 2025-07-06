@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Olivia's Softball Quiz Machine for 10U",
   description: "Test your softball knowledge with adaptive difficulty and AI-powered feedback",
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥎</text></svg>",
+  },
 };
 
 export const viewport = {

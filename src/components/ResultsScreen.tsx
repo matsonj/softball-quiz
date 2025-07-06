@@ -4,6 +4,7 @@ import { useQuiz } from '@/context/QuizContext';
 import { useMemo, useState } from 'react';
 import { eloService } from '@/services/eloService';
 import { UserAnswer, GeneratedQuestion, MultipleChoiceOption } from '@/types';
+import GameStateOverlay from './GameStateOverlay';
 
 export default function ResultsScreen() {
   const { state, dispatch } = useQuiz();
@@ -200,15 +201,9 @@ export default function ResultsScreen() {
                     </p>
                     
                     {/* Game Situation */}
-                    <div className="bg-gray-100 p-3 rounded mb-4">
-                      <p className="text-sm font-medium text-gray-700 mb-2">Game Situation:</p>
-                      <div className="text-sm text-gray-600 space-y-1">
-                        <p>Inning: {result.answer.game_state?.inning_half} of the {result.answer.game_state?.inning}{result.answer.game_state?.inning === 1 ? 'st' : result.answer.game_state?.inning === 2 ? 'nd' : result.answer.game_state?.inning === 3 ? 'rd' : 'th'}</p>
-                        <p>Count: {result.answer.game_state?.count} | Outs: {result.answer.game_state?.outs}</p>
-                        <p>Score: Your team is {result.answer.game_state?.score}</p>
-                        <p>Runners: {result.answer.game_state?.runners?.length > 0 ? result.answer.game_state.runners.join(', ') : 'None'}</p>
-                      </div>
-                    </div>
+                    {result.answer.game_state && (
+                      <GameStateOverlay gameState={result.answer.game_state} />
+                    )}
                     
                     {/* Coach Feedback */}
                     <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">

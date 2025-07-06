@@ -4,6 +4,7 @@ import { useQuiz } from '@/context/QuizContext';
 import { useState, useEffect } from 'react';
 import { GeneratedQuestion } from '@/types';
 import { playPingSound } from '@/utils/sound';
+import GameStateOverlay from './GameStateOverlay';
 
 export default function QuizScreen() {
   const { state, dispatch } = useQuiz();
@@ -60,13 +61,13 @@ export default function QuizScreen() {
   const progressPercentage = ((state.currentQuestionIndex + 1) / state.questions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-xl shadow-2xl p-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-3 py-4">
+      <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl p-4">
         {/* Progress Bar */}
-        <div className="mb-6">
+        <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-medium text-gray-600">
-              Question {state.currentQuestionIndex + 1} of {state.questions.length}
+              Q{state.currentQuestionIndex + 1}/{state.questions.length}
             </span>
             <span className="text-sm font-medium text-gray-600">
               {state.config.category}
@@ -80,32 +81,22 @@ export default function QuizScreen() {
           </div>
         </div>
 
-        {/* Game State */}
-        <div className="mb-6 bg-gray-50 p-4 rounded-lg">
-          <h3 className="font-semibold text-gray-700 mb-2">Game Situation:</h3>
-          <div className="text-sm text-gray-600">
-            <div>Inning: {currentQuestion.game_state.inning_half} of the {currentQuestion.game_state.inning}{currentQuestion.game_state.inning === 1 ? 'st' : currentQuestion.game_state.inning === 2 ? 'nd' : currentQuestion.game_state.inning === 3 ? 'rd' : 'th'}</div>
-            <div>Batting: {currentQuestion.game_state.inning_half === 'top' ? 'Visitors' : 'Home'} | Fielding: {currentQuestion.game_state.inning_half === 'top' ? 'Home' : 'Visitors'}</div>
-            <div>Count: {currentQuestion.game_state.count}</div>
-            <div>Outs: {currentQuestion.game_state.outs}</div>
-            <div>Score: {currentQuestion.game_state.score}</div>
-            <div>Runners: {currentQuestion.game_state.runners.length > 0 ? currentQuestion.game_state.runners.join(', ') : 'None'}</div>
-          </div>
-        </div>
+        {/* Game State Overlay */}
+        <GameStateOverlay gameState={currentQuestion.game_state} />
 
         {/* Question */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">
             {currentQuestion.question_text}
           </h2>
           
           {/* Multiple Choice Options */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             {currentQuestion.options.map((option) => (
               <button
                 key={option.option_id}
                 onClick={() => handleOptionSelect(option.option_id)}
-                className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
+                className={`w-full p-3 text-left rounded-lg border-2 transition-all duration-200 ${
                   selectedOptionId === option.option_id
                     ? 'border-orange-500 bg-orange-50 text-orange-800'
                     : 'border-gray-300 bg-white hover:border-gray-400 text-gray-700 hover:bg-gray-50'
@@ -115,7 +106,7 @@ export default function QuizScreen() {
                   <span className="font-semibold text-sm bg-gray-100 px-2 py-1 rounded min-w-[24px] text-center">
                     {option.option_id}
                   </span>
-                  <span className="flex-1">{option.text}</span>
+                  <span className="flex-1 text-sm">{option.text}</span>
                 </div>
               </button>
             ))}

@@ -35,11 +35,11 @@ export default function QuestionLoadingScreen({ category, questionCount }: Quest
       case 0:
         return '🥎';
       case 1:
-        return '⚾';
+        return '🥎⚾';
       case 2:
-        return '🥎';
+        return '🥎⚾🥎';
       case 3:
-        return '⚽';
+        return '🥎⚾🥎⚾';
       default:
         return '🥎';
     }
