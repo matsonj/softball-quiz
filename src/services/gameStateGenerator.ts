@@ -16,14 +16,23 @@ export class GameStateGenerator {
     ['Runner on 1st', 'Runner on 2nd', 'Runner on 3rd']
   ];
 
-  static generateGameState(): GameState {
+  static generateGameState(category?: string): GameState {
     const inning = this.randomInt(1, 7);
     const inning_half = this.randomChoice(['top', 'bottom'] as const);
     const count = this.randomChoice(this.COUNTS);
     const outs = this.randomInt(0, 2);
     const yourScore = this.randomInt(0, 8);
     const opponentScore = this.randomInt(0, 8);
-    const runners = this.randomChoice(this.RUNNER_CONFIGURATIONS);
+    
+    // For "On Base" category, ensure there's at least one runner on base
+    let runners: string[];
+    if (category === 'On Base') {
+      // Filter out empty configurations for On Base questions
+      const runnersOnBaseConfigurations = this.RUNNER_CONFIGURATIONS.filter(config => config.length > 0);
+      runners = this.randomChoice(runnersOnBaseConfigurations);
+    } else {
+      runners = this.randomChoice(this.RUNNER_CONFIGURATIONS);
+    }
     
     // Create simple score differential
     let scoreDiff: string;

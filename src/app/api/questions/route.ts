@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     // Create array of promises for parallel execution
     const questionPromises = selectedTemplates.map(async (template) => {
       try {
-        const gameState = GameStateGenerator.generateGameState();
+        const gameState = GameStateGenerator.generateGameState(template.category);
         const gameStateText = GameStateGenerator.formatGameStateForPrompt(gameState);
         
         // Get category-specific instructions
