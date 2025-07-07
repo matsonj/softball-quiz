@@ -53,37 +53,20 @@ export default function LoadingScreen() {
     }
   }, [state.answers, hasStartedEvaluation, dispatch, state.userElo]);
 
-  const getAnimationText = () => {
+  const getSoftballAnimation = () => {
     switch (animationFrame) {
       case 0:
-        return '🏏 Hitter prepares...';
-      case 1:
-        return '💥 Bat connects!';
-      case 2:
-        return '🥎 Fielder catches!';
-      case 3:
-        return '🔄 Fielder throws to pitcher...';
-      case 4:
-        return '⚾ Pitcher throws to hitter...';
-      default:
-        return '🏏 Hitter prepares...';
-    }
-  };
-
-  const getAnimationIcon = () => {
-    switch (animationFrame) {
-      case 0:
-        return '🏏';
-      case 1:
-        return '💥';
-      case 2:
         return '🥎';
+      case 1:
+        return '🥎⚾';
+      case 2:
+        return '🥎⚾🥎';
       case 3:
-        return '🔄';
+        return '🥎⚾🥎⚾';
       case 4:
-        return '⚾';
+        return '🥎⚾🥎⚾🥎';
       default:
-        return '🏏';
+        return '🥎';
     }
   };
 
@@ -113,14 +96,14 @@ export default function LoadingScreen() {
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-xl shadow-2xl p-8 text-center">
         <div className="mb-8">
-          <div className="text-8xl mb-4 transition-all duration-200">
-            {getAnimationIcon()}
+          <div className="text-8xl mb-4 transition-all duration-300">
+            {getSoftballAnimation()}
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Softball in progress...
+            Calculating your results...
           </h2>
           <p className="text-gray-600 text-lg">
-            {getAnimationText()}
+            Analyzing your softball knowledge!
           </p>
         </div>
         
