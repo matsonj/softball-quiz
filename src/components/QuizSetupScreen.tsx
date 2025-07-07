@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Category } from '@/types';
 
 export default function QuizSetupScreen() {
-  const { state, dispatch, loadQuestions } = useQuiz();
+  const { dispatch, loadQuestions } = useQuiz();
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedCount, setSelectedCount] = useState<5 | 10 | 20 | null>(5);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number>(1000);
