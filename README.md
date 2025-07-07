@@ -1,15 +1,17 @@
 # 🥎 Olivia's Magical Softball Quiz Machine
 
-A mobile-first web application that tests softball knowledge with adaptive difficulty and AI-powered feedback.
+A mobile-first web application that tests softball knowledge with adaptive difficulty and AI-powered feedback. Features dynamic question generation, TV-style game overlays, and intelligent coaching feedback.
 
-## Features
+## ✨ Key Features
 
-- **Adaptive Difficulty**: Questions adjust based on your Elo rating
-- **AI Feedback**: OpenAI GPT-3.5 provides coach-style feedback
-- **Mobile-First Design**: Optimized for tablets and phones
-- **Free-Text Input**: No multiple choice - write what you think!
-- **Three Categories**: Up to Bat, On the Field, On Base
-- **Sound Effects**: Classic metal bat "ping" sound
+- **🎯 Adaptive Difficulty**: ELO-based system with user-selectable difficulty (800-1600)
+- **🤖 AI-Powered**: Dynamic question generation and coaching feedback via OpenAI GPT-3.5
+- **📱 Mobile-First**: Compact design optimized for tablets and phones
+- **⚡ Multiple Choice**: Smart option-based questions with detailed explanations  
+- **🏟️ TV-Style Overlay**: Professional baseball broadcast-style game state display
+- **📊 Four Categories**: At Bat, Pitching, Fielding, On Base (78+ prompt templates)
+- **🔊 Sound Effects**: Metal bat "ping" sound with audio controls
+- **🎮 Game State Context**: Dynamic inning, count, score, and base runner scenarios
 
 ## Getting Started
 
@@ -52,22 +54,25 @@ npm run dev
 ## How It Works
 
 ### User Flow
-1. **Welcome Screen**: Introduction and instructions
-2. **Quiz Setup**: Choose category and number of questions
-3. **Quiz**: Answer questions with free-text input
-4. **Loading**: Animated screen while AI evaluates answers
-5. **Results**: Score, Elo rating, and feedback on missed questions
+1. **Welcome Screen**: Introduction and instructions (cookie-based skip option)
+2. **Quiz Setup**: Choose category, question count (5/10/20), and difficulty (800-1600 ELO)
+3. **Quiz**: Answer multiple-choice questions with TV-style game state overlay
+4. **Loading**: Animated screen with softball theme while processing results
+5. **Results**: Score, Elo rating, and detailed coaching feedback with game context
 
-### Elo Rating System
-- Starting Elo: 1200
-- Updated every 5 questions
-- Questions matched within ±50 Elo (expanding if needed)
-- Rating affects future question difficulty
+### 🎯 Adaptive Difficulty System
+- **Starting ELO**: 900 (beginner-friendly)
+- **User Control**: Manual difficulty selection (800-1600) overrides adaptive system
+- **Template Matching**: Questions selected within ±50 ELO, expanding to ±500 if needed
+- **Progressive Scaling**: Template reuse with different game states for variety
+- **Category Distribution**: 78+ templates across 4 categories with balanced difficulty spread
 
-### AI Evaluation
-- Uses OpenAI GPT-3.5 Turbo
-- Provides coach-style feedback
-- Evaluates correctness based on softball rules and strategy
+### 🤖 LLM-Driven Architecture
+- **Dynamic Generation**: Questions created in real-time using prompt templates
+- **Game State Context**: Realistic softball scenarios (inning, count, score, runners)
+- **Category Intelligence**: "On Base" questions guarantee runners on base
+- **Coaching Feedback**: Encouraging, detailed explanations for wrong answers
+- **No State Duplication**: Questions focus on decisions, not repeating visible game info
 
 ## Technical Stack
 
@@ -83,86 +88,127 @@ npm run dev
 src/
 ├── app/
 │   ├── api/
-│   │   ├── evaluate/    # LLM evaluation endpoint
-│   │   └── questions/   # Question loading endpoint
-│   ├── globals.css      # Global styles
-│   ├── layout.tsx       # App layout
+│   │   ├── evaluate/    # LLM evaluation endpoint (unused - MC direct scoring)
+│   │   └── questions/   # Dynamic question generation via LLM
+│   ├── globals.css      # Global styles + custom slider/overlay CSS
+│   ├── layout.tsx       # App layout with softball favicon
 │   └── page.tsx         # Main app component
 ├── components/
 │   ├── WelcomeScreen.tsx
-│   ├── QuizSetupScreen.tsx
-│   ├── QuizScreen.tsx
-│   ├── LoadingScreen.tsx
-│   └── ResultsScreen.tsx
+│   ├── QuizSetupScreen.tsx      # Category, count, difficulty selection
+│   ├── QuizScreen.tsx           # MC questions with game state overlay
+│   ├── LoadingScreen.tsx        # Softball-themed loading animation
+│   ├── ResultsScreen.tsx        # Score, coaching feedback, debug mode
+│   ├── QuestionLoadingScreen.tsx # Question generation loading
+│   └── GameStateOverlay.tsx     # TV-style baseball overlay
 ├── context/
-│   └── QuizContext.tsx  # Global state management
+│   └── QuizContext.tsx  # Global state management with useReducer
 ├── data/
-│   └── sampleQuestions.ts # Sample question data
+│   ├── prompt-templates.csv     # 78+ LLM prompt templates
+│   ├── categoryInstructions.ts  # Category-specific AI instructions
+│   └── loadingMessages.ts       # Random loading messages
 ├── services/
-│   ├── questionService.ts # Question loading and filtering
-│   └── eloService.ts     # Elo rating calculations
+│   ├── questionService.ts       # Template selection and filtering
+│   ├── eloService.ts           # ELO rating calculations
+│   ├── gameStateGenerator.ts   # Dynamic game state creation
+│   └── csvParser.ts            # CSV template parsing
 ├── types/
-│   └── index.ts         # TypeScript type definitions
+│   └── index.ts         # TypeScript definitions for game state, templates
 └── utils/
-    └── sound.ts         # Sound effect utilities
+    └── sound.ts         # Web Audio API + MP3 sound effects
 ```
 
 ## API Endpoints
 
 ### GET /api/questions
-Load questions based on category and user Elo rating.
+Dynamically generate questions using LLM with prompt templates and game states.
 
 **Query Parameters:**
-- `category`: "Up to Bat" | "On the Field" | "On Base"
-- `userElo`: number (default: 1200)
-- `count`: number (default: 10)
-- `excludeIds`: comma-separated question IDs to exclude
+- `category`: "At Bat" | "Pitching" | "Fielding" | "On Base"
+- `userElo`: number (difficulty level 800-1600)
+- `count`: number (5, 10, or 20 questions)
+
+**Response:**
+```typescript
+interface GeneratedQuestion {
+  question_id: string;
+  category: Category;
+  elo_target: number;
+  prompt_template: string;
+  question_text: string;
+  game_state: GameState;  // Dynamic inning, count, score, runners
+  options: MultipleChoiceOption[];
+}
+```
 
 ### POST /api/evaluate
-Evaluate user answers using OpenAI.
+*(Currently unused - multiple choice questions are scored directly)*
 
-**Request Body:**
-```json
-{
-  "answers": [
-    {
-      "question_id": "string",
-      "question_text": "string",
-      "user_answer": "string",
-      "question_elo": number,
-      "timestamp": "string"
-    }
-  ]
-}
-```
+## 📊 Game State & Template System
 
-## Question Data Format
-
-Questions are stored with the following structure:
-
+### Dynamic Game State
 ```typescript
-interface Question {
-  question_id: string;
-  category: 'Up to Bat' | 'On the Field' | 'On Base';
-  elo_rating: number;
-  question_text: string;
-  correct_answer: string;
-  explanation_prompt: string;
-  game_state_json: string; // JSON with inning, count, outs, score, runners
+interface GameState {
+  inning: number;              // 1-7
+  inning_half: 'top' | 'bottom';
+  count: string;               // "2-1", "3-2", etc.
+  outs: number;                // 0-2
+  score: string;               // "ahead by 3", "tied", etc.
+  runners: string[];           // ["Runner on 1st", "Runner on 3rd"]
 }
 ```
+
+### Prompt Template Structure
+```typescript
+interface PromptTemplate {
+  category: Category;
+  prompt_template: string;     // LLM instruction template
+  elo_target: number;          // Difficulty level (800-1600)
+}
+```
+
+## 🎨 UI/UX Features
+
+### TV-Style Game State Overlay
+- **Professional Design**: Mimics baseball broadcast overlays
+- **Diamond Visualization**: Shows occupied bases with blue indicators
+- **Count Display**: Visual balls (3), strikes (2), outs (2) with filled/empty circles
+- **Context-Aware**: Displays inning and score situation dynamically
+
+### Mobile-Optimized Layout
+- **Compact Design**: Fits on mobile screens without scrolling
+- **Grid Categories**: 2x2 category selection for better space usage
+- **Reduced Padding**: Optimized spacing for mobile devices
+- **Touch-Friendly**: Large tap targets and smooth interactions
+
+## 🔊 Sound Effects
+
+The app includes Web Audio API sound generation with MP3 fallback:
+- **Placeholder Sound**: Programmatic metal bat ping using oscillators
+- **MP3 Support**: Custom audio file playback with 3-second duration limit
+- **Audio Controls**: Starts at 1.5s into audio file, plays for 2 seconds
+
+## 🚀 Recent Improvements
+
+### Dynamic Question Generation (Latest)
+- **LLM-Powered**: Questions generated in real-time using OpenAI
+- **78+ Templates**: Comprehensive prompt template library
+- **Smart Game States**: "On Base" category guarantees runners on base
+- **No Duplication**: Focus on decisions, not repeating visible information
+
+### Enhanced User Experience
+- **Difficulty Control**: User-selectable ELO rating (800-1600)
+- **Default Optimization**: 5 questions, 1000 ELO for quick starts
+- **TV-Style Overlay**: Professional game state visualization
+- **Compact Mobile**: Reduced scrolling, optimized for mobile screens
 
 ## Future Enhancements
 
-- **S3 Integration**: Store questions in S3 CSV and session logs
-- **User Accounts**: Save progress across sessions
-- **Leaderboards**: Compare with other players
-- **More Categories**: Add pitching, coaching scenarios
-- **Advanced Analytics**: Detailed performance tracking
-
-## Sound Assets
-
-The app includes a ping sound effect. Replace `public/sounds/ping.mp3` with your own audio file for the metal bat sound.
+- **S3 Integration**: Store prompt templates in S3, add session logging
+- **Advanced Analytics**: Track performance trends and learning progress
+- **Social Features**: Leaderboards, sharing results, team competitions  
+- **Content Expansion**: More categories (coaching, umpiring, advanced strategy)
+- **Adaptive Learning**: ML-powered difficulty adjustment based on performance patterns
 
 ## Deployment
 
